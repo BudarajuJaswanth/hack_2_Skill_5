@@ -82,6 +82,8 @@ export function TopBar() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-xl text-charcoal-light hover:bg-cream transition-colors cursor-pointer"
             aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation-menu"
           >
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -131,10 +133,17 @@ export function TopBar() {
               }}
               className="relative p-2.5 rounded-xl text-charcoal-light hover:bg-cream hover:text-charcoal transition-colors cursor-pointer"
               aria-label="Notifications"
+              aria-expanded={notifDropdownOpen}
+              aria-haspopup="dialog"
             >
               <Bell className="h-5 w-5" />
               {unreadNotificationsCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-terracotta rounded-full flex items-center justify-center animate-pulse">
+                <span
+                  role="status"
+                  aria-live="polite"
+                  aria-label={`${unreadNotificationsCount} unread notifications`}
+                  className="absolute top-1.5 right-1.5 min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-terracotta rounded-full flex items-center justify-center animate-pulse"
+                >
                   {unreadNotificationsCount}
                 </span>
               )}
@@ -235,6 +244,8 @@ export function TopBar() {
               }}
               className="flex items-center gap-2.5 p-1.5 pl-2.5 pr-2 rounded-xl hover:bg-cream transition-colors cursor-pointer border border-transparent hover:border-border-light"
               aria-label="User profile menu"
+              aria-expanded={profileDropdownOpen}
+              aria-haspopup="menu"
             >
               <Avatar name="Alex Morgan" size="sm" />
               <div className="hidden md:block text-left">
@@ -348,6 +359,8 @@ export function TopBar() {
               onClick={() => setMobileMenuOpen(false)}
             />
             <motion.nav
+              id="mobile-navigation-menu"
+              aria-label="Mobile Navigation"
               initial={{ x: -280 }}
               animate={{ x: 0 }}
               exit={{ x: -280 }}
@@ -367,6 +380,7 @@ export function TopBar() {
                   </div>
                   <button
                     onClick={() => setMobileMenuOpen(false)}
+                    aria-label="Close menu"
                     className="p-1 rounded-lg text-charcoal-light hover:bg-cream"
                   >
                     <X className="h-5 w-5" />

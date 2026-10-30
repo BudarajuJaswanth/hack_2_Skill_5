@@ -12,6 +12,7 @@ export function SearchInput({ containerClassName, className, ...props }: SearchI
       <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-charcoal-light/60" />
       <input
         type="search"
+        aria-label={props['aria-label'] || 'Search'}
         className={cn(
           'w-full rounded-lg border border-border bg-card-white pl-10 pr-4 py-2 text-sm',
           'placeholder:text-charcoal-light/50',

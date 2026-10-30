@@ -416,6 +416,8 @@ How can I assist you today? You can ask me to generate color palettes, calculate
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
+                role="status"
+                aria-live="polite"
                 className="bg-olive text-white px-4 py-2.5 text-xs font-medium flex items-center justify-between shadow-sm z-20"
               >
                 <div className="flex items-center gap-2">
@@ -426,6 +428,7 @@ How can I assist you today? You can ask me to generate color palettes, calculate
                   type="button"
                   onClick={() => setSavedActionNotice(null)}
                   className="text-white/80 hover:text-white"
+                  aria-label="Dismiss notification"
                 >
                   ✕
                 </button>
@@ -434,7 +437,12 @@ How can I assist you today? You can ask me to generate color palettes, calculate
           </AnimatePresence>
 
           {/* Chat Messages Log */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5">
+          <div
+            role="log"
+            aria-live="polite"
+            aria-label="AI planning conversation"
+            className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5"
+          >
             {messages.map((msg) => {
               const isUser = msg.sender === 'user';
 
@@ -541,6 +549,7 @@ How can I assist you today? You can ask me to generate color palettes, calculate
                           <button
                             type="button"
                             onClick={() => handleCopy(msg.id, msg.text)}
+                            aria-label="Copy message text"
                             className="hover:text-charcoal flex items-center gap-1 transition-colors"
                           >
                             {copiedId === msg.id ? (
@@ -560,6 +569,7 @@ How can I assist you today? You can ask me to generate color palettes, calculate
                           <button
                             type="button"
                             onClick={handleRegenerate}
+                            aria-label="Regenerate this response"
                             className="hover:text-charcoal flex items-center gap-1 transition-colors"
                             title="Regenerate this response"
                           >
@@ -633,6 +643,7 @@ How can I assist you today? You can ask me to generate color palettes, calculate
                 value={inputPrompt}
                 onChange={(e) => setInputPrompt(e.target.value)}
                 disabled={isTyping}
+                aria-label="Ask your AI planning architect a question"
                 className="flex-1 rounded-xl border border-sand bg-cream/20 px-4 py-2.5 text-xs sm:text-sm text-charcoal placeholder:text-charcoal/40 focus:outline-none focus:ring-2 focus:ring-terracotta/20 focus:border-terracotta transition-all"
               />
               <Button
@@ -657,18 +668,22 @@ How can I assist you today? You can ask me to generate color palettes, calculate
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="ai-config-modal-title"
               className="bg-white rounded-2xl border border-sand p-6 max-w-lg w-full shadow-lg space-y-4 text-charcoal"
             >
               <div className="flex items-center justify-between pb-2 border-b border-sand/60">
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-terracotta" />
-                  <h3 className="font-serif font-bold text-base text-charcoal">
+                  <h3 id="ai-config-modal-title" className="font-serif font-bold text-base text-charcoal">
                     AI Gateway Configuration
                   </h3>
                 </div>
                 <button
                   type="button"
                   onClick={() => setShowConfigModal(false)}
+                  aria-label="Close configuration dialog"
                   className="text-charcoal/50 hover:text-charcoal text-sm"
                 >
                   ✕

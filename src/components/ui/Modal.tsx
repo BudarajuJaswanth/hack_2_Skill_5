@@ -49,12 +49,16 @@ export function Modal({ isOpen, onClose, title, description, children, size = 'm
             exit={{ opacity: 0 }}
             className="absolute inset-0 bg-charcoal/40 backdrop-blur-sm"
             onClick={onClose}
+            aria-hidden="true"
           />
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.2 }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={title ? 'modal-dialog-title' : undefined}
             className={cn(
               'relative w-full bg-card-white rounded-2xl shadow-modal p-6',
               sizes[size],
@@ -63,13 +67,17 @@ export function Modal({ isOpen, onClose, title, description, children, size = 'm
           >
             <div className="flex items-start justify-between mb-4">
               <div>
-                {title && <h2 className="text-xl font-heading font-semibold text-charcoal">{title}</h2>}
+                {title && (
+                  <h2 id="modal-dialog-title" className="text-xl font-heading font-semibold text-charcoal">
+                    {title}
+                  </h2>
+                )}
                 {description && <p className="text-sm text-charcoal-light mt-1">{description}</p>}
               </div>
               <button
                 onClick={onClose}
                 className="p-1.5 rounded-lg text-charcoal-light hover:text-charcoal hover:bg-cream transition-colors"
-                aria-label="Close modal"
+                aria-label="Close modal dialog"
               >
                 <X className="h-5 w-5" />
               </button>

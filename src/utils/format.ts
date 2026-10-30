@@ -35,3 +35,14 @@ export function getProgressPercentage(current: number, total: number): number {
   if (total === 0) return 0;
   return Math.min(Math.round((current / total) * 100), 100);
 }
+
+export function formatTime(timeString: string): string {
+  if (!timeString) return '';
+  const [hoursStr, minutesStr] = timeString.split(':');
+  const hours = parseInt(hoursStr, 10);
+  if (isNaN(hours)) return timeString;
+  const minutes = minutesStr || '00';
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const displayHours = hours % 12 || 12;
+  return `${displayHours}:${minutes} ${ampm}`;
+}

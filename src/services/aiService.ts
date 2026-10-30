@@ -255,7 +255,7 @@ function generateDemoResponse(userQuery: string, context: AIPlanningContext): AI
   }
 
   // 3. BUDGET ALLOCATION RECOMMENDATIONS
-  if (q.includes('budget') || q.includes('allocation') || q.includes('breakdown') || q.includes('cost') || q.includes('spend')) {
+  if (!q.includes('save') && !q.includes('saving') && (q.includes('budget') || q.includes('allocation') || q.includes('breakdown') || q.includes('cost') || q.includes('spend'))) {
     const venueShare = Math.round(budget * 0.35);
     const cateringShare = Math.round(budget * 0.30);
     const photoShare = Math.round(budget * 0.12);
@@ -1032,7 +1032,7 @@ Guidance:
           let category: StructuredRecommendation['category'] = 'general';
           if (q.includes('theme') || q.includes('color') || q.includes('palette')) category = 'theme';
           else if (q.includes('decor') || q.includes('flower') || q.includes('lighting')) category = 'decor';
-          else if (q.includes('budget') || q.includes('cost') || q.includes('spend')) category = 'budget';
+          else if (!q.includes('save') && !q.includes('saving') && (q.includes('budget') || q.includes('cost') || q.includes('spend'))) category = 'budget';
           else if (q.includes('checklist') || q.includes('prep') || q.includes('timeline')) category = 'checklist';
           else if (q.includes('schedule') || q.includes('run of show') || q.includes('day-of')) category = 'schedule';
           else if (q.includes('cater') || q.includes('food') || q.includes('menu')) category = 'catering';
@@ -1126,7 +1126,9 @@ Guidance:
     }
 
     // 3. FALLBACK TO STUDIO DEMO SIMULATION
-    await new Promise((resolve) => setTimeout(resolve, 850));
+    if (import.meta.env.MODE !== 'test') {
+      await new Promise((resolve) => setTimeout(resolve, 850));
+    }
     return generateDemoResponse(userMessage, context);
   },
 };

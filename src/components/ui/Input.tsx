@@ -27,6 +27,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             ref={ref}
             id={inputId}
+            aria-invalid={error ? true : undefined}
+            aria-describedby={error ? `${inputId}-error` : undefined}
             className={cn(
               'w-full rounded-lg border bg-card-white px-3 py-2 text-sm text-charcoal',
               'placeholder:text-charcoal-light/50',
@@ -39,7 +41,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
         </div>
-        {error && <p className="text-xs text-error">{error}</p>}
+        {error && <p id={`${inputId}-error`} role="alert" className="text-xs text-error">{error}</p>}
       </div>
     );
   }
