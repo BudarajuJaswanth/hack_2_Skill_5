@@ -7,8 +7,9 @@
 import type { Event, Task, Guest, BudgetItem, Vendor, TimelineItem, DashboardStats, Activity, AppNotification } from '@/types';
 import { demoEvents, demoTasks, demoGuests, demoBudgetItems, demoVendors, demoTimeline, demoActivities, demoNotifications } from '@/data/demo';
 
-// Simulated async delay for realistic UX
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+// Simulated async delay for realistic UX (bypassed in test mode for instant execution)
+const delay = (ms: number) =>
+  import.meta.env.MODE === 'test' ? Promise.resolve() : new Promise((resolve) => setTimeout(resolve, ms));
 
 export const eventService = {
   // Events

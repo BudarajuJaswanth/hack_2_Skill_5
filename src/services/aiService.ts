@@ -1082,10 +1082,14 @@ Guidance:
           };
         } else {
           const errData = await groqRes.json().catch(() => null);
-          console.warn('Groq API error:', errData);
+          if (import.meta.env.MODE !== 'test') {
+            console.warn('Groq API error:', errData);
+          }
         }
       } catch (groqErr) {
-        console.warn('Failed to call Groq API; falling back to demo simulation', groqErr);
+        if (import.meta.env.MODE !== 'test') {
+          console.warn('Failed to call Groq API; falling back to demo simulation', groqErr);
+        }
       }
     }
 
@@ -1121,7 +1125,9 @@ Guidance:
           suggestedPrompts: data.suggestedPrompts,
         };
       } catch (err) {
-        console.warn('Backend AI gateway unavailable; falling back to demo engine', err);
+        if (import.meta.env.MODE !== 'test') {
+          console.warn('Backend AI gateway unavailable; falling back to demo engine', err);
+        }
       }
     }
 

@@ -159,3 +159,4 @@ describe('Supabase Entity Mappers & Data Integrity', () => {
     expect(reconstructed.title).toBe(tl.title);
   });
 });
+

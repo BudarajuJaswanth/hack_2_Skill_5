@@ -75,7 +75,7 @@ describe('Problem Statement Verification: GenAI Event Planning Platform', () => 
       expect(vendor).toHaveProperty('bookingStatus');
     });
 
-    it('tracks actionable tasks and milestone completion status across planning phases', () => {
+    it('tracks actionable vendor checklists and milestone status', () => {
       expect(demoTasks.length).toBeGreaterThan(0);
       const task = demoTasks[0];
       expect(task).toHaveProperty('title');
@@ -111,3 +111,4 @@ describe('Problem Statement Verification: GenAI Event Planning Platform', () => 
     });
   });
 });
+

@@ -19,3 +19,4 @@ describe('Utility Formatters', () => {
     expect(formatTime('09:30')).toMatch(/9:30\s*(AM|am)?/i);
   });
 });
+

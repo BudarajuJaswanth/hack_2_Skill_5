@@ -1,131 +1,120 @@
-# ✨ Gather & Glow — Luxury Event Management & GenAI Planning Platform
+# ✨ Gather & Glow — GenAI Event Planning Platform
 
 [![Vite](https://img.shields.io/badge/Vite-v8.3-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![React](https://img.shields.io/badge/React-v19.3-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-v7.0-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vitest](https://img.shields.io/badge/Tests-40%2B%20Passing-22c55e?logo=vitest&logoColor=white)](https://vitest.dev/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.3-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Groq Cloud](https://img.shields.io/badge/AI-Groq_Cloud-F55036?logo=fastapi&logoColor=white)](https://groq.com/)
 [![Supabase](https://img.shields.io/badge/Database-Supabase_PostgreSQL-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/)
 
-> **"Every Celebration Starts With a Beautiful Plan."**
-> A modern luxury event management SaaS platform and GenAI-powered planning architect crafted to help organizers plan **Weddings**, **Birthdays**, and **Community Festivals** with dynamic budgets, precision timelines, vendor checklists, and personalized aesthetic ideas.
+> **Theme / Core Mission:**  
+> **"Create a GenAI-powered planning assistant that helps users organize weddings, birthdays, and community events with budgets, timelines, vendor checklists, and personalized ideas."**
+
+---
+
+## 🎯 Problem Statement Alignment Matrix
+
+| Pillar | Required Capability | Implementation in Gather & Glow | Verification Test |
+| :--- | :--- | :--- | :--- |
+| **1. Event Categories** | Organize **Weddings**, **Birthdays**, & **Community Events** | Dedicated ceremony workflows, milestone birthday parties, and civic festival permit tracking | `problemStatement.test.ts` (Pillar 1) |
+| **2. Dynamic Budgets** | Calculate allocations, cost-savings & financial ledger | Category allocation breakdown, spending charts, threshold warnings, and expense tracking | `problemStatement.test.ts` (Pillar 2) & `aiService.test.ts` |
+| **3. Timelines & Schedules** | Master cue sheet & minute-by-minute schedule | Day-of run of show schedule generation with responsible party tags and milestone cues | `problemStatement.test.ts` (Pillar 3) |
+| **4. Vendor Checklists** | Vendor contract tracking & milestone checklists | Multi-phase vendor checklists (6-month countdown to event week) + quoted vs. agreed price tracker | `problemStatement.test.ts` (Pillar 4) |
+| **5. Personalized Ideas** | Bespoke aesthetic themes, palettes, and invitations | Tailored color palettes with hex codes, atmosphere staging notes, and letterpress/digital invitation drafts | `problemStatement.test.ts` (Pillar 5) |
 
 ---
 
 ## 🌟 Key Features & Capabilities
 
-### 1. 🤖 GenAI-Powered Planning Assistant (`/ai-assistant`)
-* **Real-Time Live Inference**: Connected to Groq Cloud running `openai/gpt-oss-120b` with sub-second response times.
-* **Studio Simulation Fallback**: High-fidelity offline intelligence engine for zero-configuration demo operation.
-* **10 Planning Directives**:
-  1. Luxury themes & color palettes with exact hex codes and tactile textures.
-  2. Architectural floral staging, compotes, and ambient 2200K festoon lighting.
-  3. Dynamic line-item budget allocation breakdowns.
-  4. Multi-phase milestone countdown checklists (from 6 months out to event week).
-  5. Precision minute-by-minute day-of runs of show.
-  6. Farm-to-table culinary menus, cocktail mixology, and dietary care (vegan, gluten-free, allergy care).
-  7. Tiered vendor enlistment priorities.
-  8. Strategic cost-saving proposals ($5,000+ potential savings).
-  9. Formal letterpress, contemporary digital RSVP, and civic flyer invitation wording.
-  10. Context-aware advice synced to your active celebration parameters.
-* **1-Click "Save to Event"**: Automatically imports AI recommendations into your live **Tasks**, **Budget Ledger**, **Timeline Schedule**, or **Event Theme**.
+### 1. 🤖 GenAI Planning Assistant (`/ai-assistant`)
+* **Dual Inference Pipeline**:
+  * **Live Groq Cloud**: Ultra-fast LLM inference (`openai/gpt-oss-120b`) via API key.
+  * **Studio Simulation Engine**: Deterministic fallback providing rich, production-grade recommendations offline.
+* **1-Click "Save to Event"**: Automatically injects AI-generated tasks, budget allocations, run of show schedules, or theme notes directly into the event workspace.
 
-### 2. 💍 Tailored Celebration Workflows
-* **Weddings**: Ceremony & vow exchange timing, floral arbor staging, bridal suite logistics, classical string quartets, and letterpress invitation suites.
-* **Birthdays**: Rooftop penthouses, curated DJ playlists, craft mixology, multi-tiered cake reveals with bottle sparklers, and photo moments.
-* **Community Events**: Municipal park permits, sound approvals, volunteer committee shifts (30+ leads), artisan food truck coordination, and mainstage audio staging.
+### 2. 💍 Event Category Workflows
+* **Weddings**: Vow exchange timing, floral compotes, seating plans, rehearsal dinners, and formal letterpress stationery.
+* **Birthdays**: Rooftop lounge themes, DJ and cocktail curation, cake reveals, and invitation copy.
+* **Community Events**: Municipal park permits, sound bylaws, volunteer committee shift tracking, and staging schedules.
 
-### 3. 💰 Comprehensive Budget Planner (`/budget`)
-* **Real-Time Financial Metrics**: Total Budget, Estimated Cost, Actual Spent, and Remaining Reserve.
-* **Over-Budget Warning System**: Proactive alert banner triggered when spending exceeds 85% of budget.
-* **Interactive Recharts Visualizations**: Category breakdown charts and estimated vs. actual variance tracking.
-* **Line-Item Ledger**: Full CRUD expense management with *Paid* / *Pending* toggles.
+### 3. 💰 Budget Ledger & Allocations (`/budget`)
+* **Real-Time Financial Dashboard**: Total Budget, Estimated Cost, Actual Spent, and Remaining Reserve.
+* **Over-Budget Warning System**: Proactive banner alert triggered at 85% expenditure.
+* **Interactive Recharts**: Category breakdown visualizations and expenditure variances.
 
 ### 4. ⏱️ Timeline & Task Management (`/timeline`, `/tasks`)
-* **Day-of Master Cue Sheet**: Chronological run-of-show cue sheets with responsible supplier markers.
-* **Multi-View Task Manager**:
-  * **Kanban Board**: Drag-and-drop / click-to-move across *Pending*, *In Progress*, and *Completed*.
-  * **List View**: Filterable task table with priority badges and overdue warnings.
-  * **Calendar View**: Monthly deadline scheduling.
+* **Day-of Run of Show**: Chronological cue sheet with vendor assignments.
+* **Kanban & List Views**: Task tracking across *Pending*, *In Progress*, and *Completed* stages.
 
-### 5. 🤝 Vendor Directory & Quote Comparison (`/vendors`)
-* **10+ Service Categories**: Venue, Catering, Decoration, Photography, Videography, Music, Makeup, Transportation, and Invitations.
-* **Quoted vs. Agreed Price**: Compares initial estimates against final negotiated contract figures.
-* **Contract & Deposit Tracking**: Signed agreements, deposit milestones, paid amounts, and outstanding balances.
+### 5. 🤝 Vendor Checklists & Contract Tracking (`/vendors`)
+* Tracks quotations, agreed contract prices, deposit dates, and payment balances across 10+ categories.
 
-### 6. 👥 Guest Logistics & RSVP Tracking (`/guests`)
-* **Real-Time Attendance**: RSVP breakdowns (*Confirmed*, *Declined*, *Pending*, *Invited*).
-* **Dietary & Special Requirements**: Tracks vegan, vegetarian, gluten-free, allergies, and mobility accommodations.
-* **Plus-One & Table Allocations**: Tracks guest companions, plus-one names, and seating assignments.
+### 6. 🔒 Enterprise Security & Privacy
+* **HTTP Security Headers**: Strict CSP, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `HSTS`, and `Referrer-Policy: strict-origin-when-cross-origin` in `vercel.json`.
+* **Zero Secret Exposure**: `.env` is excluded and untracked; client uses safe public proxies or optional simulation mode.
+* **Supabase PostgreSQL RLS**: Row Level Security policies with cascading referential integrity.
 
-### 7. ☁️ Supabase PostgreSQL Cloud Sync (`/settings`)
-* **Production Schema Script**: [`supabase/schema.sql`](./supabase/schema.sql) with tables (`events`, `tasks`, `guests`, `budget_items`, `vendors`, `timeline_items`), foreign keys (`ON DELETE CASCADE`), indexes, and Row Level Security (RLS) policies.
-* **Bidirectional Sync**: Real-time optimistic UI with automatic cloud synchronization and local cache fallback.
+### 7. ♿ Accessibility (WCAG 2.1 AA)
+* Accessible modal dialogs (`role="dialog"`, `aria-modal="true"`, `aria-labelledby`).
+* Live regions (`role="log"`, `aria-live="polite"`) for real-time AI generation.
+* Form controls with `aria-invalid` and `aria-describedby` error associations.
+* Skip to main content navigation link for screen readers and keyboard users.
 
 ---
 
-## 🛠️ Tech Stack & Architecture
+## 🧪 Automated Testing Suite
 
-* **Frontend Framework**: React 19 + TypeScript
-* **Build System**: Vite 8
-* **Styling**: Tailwind CSS v4 + Motion for React
-* **Data Visualizations**: Recharts
+Run the full Vitest suite:
+```bash
+npm test
+```
+
+### Test Coverage Highlights:
+- **`problemStatement.test.ts`**: Verifies all 5 pillars (Weddings, Birthdays, Community Events, Budgets, Timelines, Vendor Checklists, Personalized Ideas).
+- **`aiService.test.ts`**: Validates prompt generation, fallback resilience, invitation copy, and budget calculations.
+- **`eventService.test.ts`**: Validates event retrieval, filtering, aggregations, and statistics calculation.
+- **`hooks.test.ts`**: Verifies local storage persistence and state sync.
+- **`supabaseClient.test.ts`**: Tests bi-directional snake_case $\leftrightarrow$ camelCase mappers.
+- **`format.test.ts`**: Validates currency, date, and time formatting.
+- **`components.test.tsx`**: Validates accessible component rendering.
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend**: React 19 + TypeScript
+* **Build**: Vite 8 (Route code-splitting via `React.lazy`)
+* **Styling**: Tailwind CSS v4 + Motion
+* **Visualizations**: Recharts
 * **Icons**: Lucide React
-* **AI Provider**: Groq Cloud (`openai/gpt-oss-120b`)
-* **Database & Cloud**: Supabase (PostgreSQL 15 via PostgREST)
-* **Code Quality**: Oxlint (0 errors, 0 warnings)
+* **AI Provider**: Groq Cloud (`openai/gpt-oss-120b`) / Studio Simulation
+* **Database**: Supabase PostgreSQL 15
+* **Testing**: Vitest + Testing Library + JSDOM
+* **Linter**: Oxlint (0 errors, 0 warnings)
 
 ---
 
 ## 🚀 Getting Started
 
-### 1. Clone & Install Dependencies
 ```bash
+# 1. Clone & install
 git clone https://github.com/BudarajuJaswanth/hack_2_Skill_5.git
 cd hack_2_Skill_5
 npm install
-```
 
-### 2. Configure Environment Variables
-Copy the example environment configuration:
-```bash
-cp .env.example .env
-```
-Configure your environment variables in `.env`:
-```env
-VITE_APP_TITLE="Gather & Glow | Luxury Event Planning Atelier"
+# 2. Run automated tests
+npm test
 
-# AI Provider: 'demo' (offline simulation) | 'groq' (live inference)
-VITE_AI_PROVIDER=groq
-VITE_GROQ_API_KEY="your-groq-api-key"
-VITE_GROQ_MODEL="openai/gpt-oss-120b"
+# 3. Check code quality / linter
+npm run lint
 
-# Optional: Supabase PostgreSQL Persistence
-VITE_SUPABASE_URL="https://your-project.supabase.co"
-VITE_SUPABASE_ANON_KEY="your-supabase-anon-key"
-```
-
-### 3. Launch Development Server
-```bash
+# 4. Start local development
 npm run dev
-```
-Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-### 4. Build for Production
-```bash
+# 5. Build for production
 npm run build
-npm run preview
 ```
-
----
-
-## 🗄️ Database Setup (Supabase)
-
-To initialize your cloud database tables:
-1. Open your [Supabase Dashboard SQL Editor](https://supabase.com/dashboard/project/_/sql).
-2. Copy and paste the contents of [`supabase/schema.sql`](./supabase/schema.sql).
-3. Click **Run**.
-4. In Gather & Glow, go to **Settings** (`/settings`) and click **"Test Connection"** to verify.
 
 ---
 
