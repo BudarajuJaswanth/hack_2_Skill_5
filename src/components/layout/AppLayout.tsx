@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { TopBar } from './TopBar';
+import { MobileBottomNav } from './MobileBottomNav';
 import { EventFormModal } from '@/components/modals/EventFormModal';
 import { DeleteEventModal } from '@/components/modals/DeleteEventModal';
 import { GlobalSearchModal } from '@/components/modals/GlobalSearchModal';
@@ -12,6 +14,8 @@ import { TaskModal } from '@/components/modals/TaskModal';
 import { TimelineModal } from '@/components/modals/TimelineModal';
 
 export function AppLayout() {
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+
   return (
     <div className="flex min-h-screen bg-ivory">
       {/* Skip to Main Content Link for Screen Readers and Keyboard Navigation */}
@@ -22,17 +26,28 @@ export function AppLayout() {
         Skip to main content
       </a>
 
+      {/* Desktop Persistent Sidebar */}
       <Sidebar />
+
       <div className="flex-1 flex flex-col min-w-0">
-        <TopBar />
+        {/* TopBar with Header Navigation & Mobile Drawer Trigger */}
+        <TopBar
+          mobileMenuOpenExternal={mobileDrawerOpen}
+          setMobileMenuOpenExternal={setMobileDrawerOpen}
+        />
+
+        {/* Main Content Area with Safe Bottom Padding for Mobile Nav */}
         <main
           id="main-content"
           tabIndex={-1}
-          className="flex-1 p-4 lg:p-8 max-w-7xl w-full mx-auto focus:outline-none"
+          className="flex-1 p-3 sm:p-5 lg:p-8 pb-24 lg:pb-8 max-w-7xl w-full mx-auto focus:outline-none"
         >
           <Outlet />
         </main>
       </div>
+
+      {/* Mobile Sticky Thumb-Friendly Bottom Navigation Bar */}
+      <MobileBottomNav onOpenMoreMenu={() => setMobileDrawerOpen(true)} />
 
       {/* Global Interactive Modals */}
       <EventFormModal />

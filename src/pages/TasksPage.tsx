@@ -63,6 +63,7 @@ export function TasksPage() {
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
+  const [mobileKanbanTab, setMobileKanbanTab] = useState<string>('all');
 
   // Calendar view navigation (Year & Month)
   const [currentCalendarDate, setCurrentCalendarDate] = useState<Date>(() => new Date());
@@ -429,7 +430,96 @@ export function TasksPage() {
       ) : activeView === 'list' ? (
         /* 1. LIST VIEW */
         <Card className="border-sand/70 bg-white/95 overflow-hidden shadow-xs">
-          <div className="overflow-x-auto">
+          {/* Mobile Touch-Friendly Task Cards (sm:hidden) */}
+          <div className="sm:hidden divide-y divide-sand/40">
+            {displayedTasks.map((task) => {
+              const isDone = task.status === 'completed';
+              const isOverdue = !isDone && task.dueDate && task.dueDate < todayStr;
+              const priority = PRIORITY_CONFIG[task.priority] || PRIORITY_CONFIG.medium;
+
+              return (
+                <div
+                  key={task.id}
+                  onClick={() => handleEditTask(task)}
+                  className={`p-3.5 hover:bg-cream/40 transition-colors active:bg-cream/60 flex items-start gap-3 cursor-pointer ${
+                    isDone ? 'opacity-60 bg-cream/20' : ''
+                  }`}
+                >
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleTask(task.id);
+                    }}
+                    aria-label={isDone ? `Mark ${task.title} as incomplete` : `Mark ${task.title} as complete`}
+                    className={`mt-0.5 w-6 h-6 rounded-md border flex items-center justify-center transition-all shrink-0 ${
+                      isDone
+                        ? 'bg-olive border-olive text-white shadow-xs'
+                        : 'border-sand hover:border-terracotta bg-white'
+                    }`}
+                  >
+                    {isDone && <Check className="w-4 h-4" />}
+                  </button>
+
+                  <div className="flex-1 min-w-0 space-y-1.5">
+                    <div className="flex items-start justify-between gap-2">
+                      <p className={`font-semibold text-charcoal text-sm ${isDone ? 'line-through text-charcoal/50' : ''}`}>
+                        {task.title}
+                      </p>
+                      <Badge variant={priority.variant} size="sm" className="shrink-0 text-[10px]">
+                        {priority.label}
+                      </Badge>
+                    </div>
+
+                    {task.description && (
+                      <p className="text-xs text-charcoal/60 line-clamp-2">{task.description}</p>
+                    )}
+
+                    <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] text-charcoal/60">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-sand/50 text-[10px]">
+                        <Tag className="w-2.5 h-2.5 text-terracotta" />
+                        <span>{task.category || 'General'}</span>
+                      </span>
+
+                      {task.dueDate && (
+                        <span className={`inline-flex items-center gap-1 ${isOverdue ? 'text-rose font-semibold' : ''}`}>
+                          <Clock className="w-3 h-3" />
+                          <span>{task.dueDate}</span>
+                          {isOverdue && <span className="text-[10px] bg-rose/10 px-1 rounded text-rose">Overdue</span>}
+                        </span>
+                      )}
+
+                      {task.assignee && (
+                        <span className="text-charcoal/70">· {task.assignee}</span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-1 shrink-0" onClick={(e) => e.stopPropagation()}>
+                    <button
+                      type="button"
+                      onClick={() => handleEditTask(task)}
+                      aria-label={`Edit ${task.title}`}
+                      className="p-1.5 rounded-lg text-charcoal/60 hover:text-charcoal hover:bg-sand/60"
+                    >
+                      <Edit2 className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) => handleDeleteTask(task.id, task.title, e)}
+                      aria-label={`Delete ${task.title}`}
+                      className="p-1.5 rounded-lg text-charcoal/60 hover:text-rose hover:bg-rose/10"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Desktop & Tablet Full Table (Hidden on small screens) */}
+          <div className="hidden sm:block overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
                 <tr className="border-b border-sand/50 bg-cream/30 text-charcoal/60 font-serif uppercase tracking-wider">
@@ -567,8 +657,39 @@ export function TasksPage() {
         </Card>
       ) : activeView === 'kanban' ? (
         /* 2. KANBAN BOARD VIEW */
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {STATUS_COLUMNS.map((col) => {
+        <div className="space-y-4">
+          {/* Mobile Column Tab Switcher (sm:hidden) */}
+          <div className="sm:hidden flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none overscroll-contain">
+            <button
+              type="button"
+              onClick={() => setMobileKanbanTab('all')}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
+                mobileKanbanTab === 'all'
+                  ? 'bg-terracotta text-white shadow-xs'
+                  : 'bg-white border border-sand text-charcoal/70'
+              }`}
+            >
+              All Columns
+            </button>
+            {STATUS_COLUMNS.map((col) => (
+              <button
+                key={col.id}
+                type="button"
+                onClick={() => setMobileKanbanTab(col.id)}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-1.5 ${
+                  mobileKanbanTab === col.id
+                    ? 'bg-terracotta text-white shadow-xs'
+                    : 'bg-white border border-sand text-charcoal/70'
+                }`}
+              >
+                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: col.color }} />
+                <span>{col.label}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {STATUS_COLUMNS.filter((col) => mobileKanbanTab === 'all' || mobileKanbanTab === col.id).map((col) => {
             const colTasks = displayedTasks.filter((t) => {
               if (col.id === 'overdue') {
                 return t.status !== 'completed' && t.dueDate && t.dueDate < todayStr;
@@ -664,6 +785,7 @@ export function TasksPage() {
               </div>
             );
           })}
+          </div>
         </div>
       ) : activeView === 'calendar' ? (
         /* 3. CALENDAR VIEW */

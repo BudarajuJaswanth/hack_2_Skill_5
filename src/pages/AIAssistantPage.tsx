@@ -408,7 +408,30 @@ How can I assist you today? You can ask me to generate color palettes, calculate
         </div>
 
         {/* Right Column: Interactive Chat Interface */}
-        <div className="lg:col-span-8 flex flex-col bg-white rounded-2xl border border-sand/80 shadow-xs overflow-hidden h-full">
+        <div className="lg:col-span-8 flex flex-col bg-white rounded-2xl border border-sand/80 shadow-xs overflow-hidden h-[calc(100dvh-13.5rem)] sm:h-[calc(100dvh-15rem)] lg:h-[750px]">
+          {/* Mobile Celebration Context Header */}
+          <div className="lg:hidden p-2.5 bg-cream/40 border-b border-sand/60 flex items-center justify-between gap-2 text-xs">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <Building2 className="w-3.5 h-3.5 text-terracotta shrink-0" />
+              <span className="text-[11px] font-medium text-charcoal/60 shrink-0">Context:</span>
+              <select
+                value={selectedEventId}
+                onChange={(e) => handleSelectEvent(e.target.value)}
+                aria-label="Select celebration event context for AI assistant"
+                className="bg-white border border-sand rounded-lg px-2 py-1 text-xs text-charcoal font-medium truncate max-w-[170px] focus:outline-none focus:border-terracotta"
+              >
+                {eventSelectOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <span className="text-[10px] text-olive font-semibold bg-olive/10 px-2 py-0.5 rounded-full shrink-0">
+              ${customContext.budget?.toLocaleString()} Budget
+            </span>
+          </div>
+
           {/* Action Saved Notification Toast */}
           <AnimatePresence>
             {savedActionNotice && (
@@ -614,18 +637,22 @@ How can I assist you today? You can ask me to generate color palettes, calculate
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Quick Mobile Suggestion Bar */}
-          <div className="lg:hidden px-4 py-2 bg-cream/30 border-t border-sand/40 overflow-x-auto flex gap-2">
-            {QUICK_INQUIRY_PILLS.slice(0, 4).map((p, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => handleSend(p.prompt)}
-                className="whitespace-nowrap px-2.5 py-1 text-xs rounded-full bg-white border border-sand text-charcoal/80 shrink-0"
-              >
-                {p.label}
-              </button>
-            ))}
+          {/* Quick Mobile Suggestion Bar (All Planning Capabilities with Horizontal Touch Scroll) */}
+          <div className="lg:hidden px-3 py-2 bg-cream/30 border-t border-sand/40 overflow-x-auto flex gap-1.5 scrollbar-none overscroll-contain">
+            {QUICK_INQUIRY_PILLS.map((p, idx) => {
+              const Icon = p.icon;
+              return (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => handleSend(p.prompt)}
+                  className="whitespace-nowrap px-3 py-1.5 text-xs rounded-full bg-white border border-sand hover:border-terracotta text-charcoal/80 shrink-0 active:scale-95 transition-all shadow-xs flex items-center gap-1.5"
+                >
+                  <Icon className="w-3 h-3 text-terracotta" />
+                  <span>{p.label}</span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Message Input Box */}

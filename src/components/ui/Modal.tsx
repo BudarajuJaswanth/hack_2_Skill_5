@@ -42,12 +42,12 @@ export function Modal({ isOpen, onClose, title, description, children, size = 'm
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-charcoal/40 backdrop-blur-sm"
+            className="fixed inset-0 bg-charcoal/40 backdrop-blur-sm"
             onClick={onClose}
             aria-hidden="true"
           />
@@ -60,29 +60,34 @@ export function Modal({ isOpen, onClose, title, description, children, size = 'm
             aria-modal="true"
             aria-labelledby={title ? 'modal-dialog-title' : undefined}
             className={cn(
-              'relative w-full bg-card-white rounded-2xl shadow-modal p-6',
+              'relative w-full max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-3rem)] flex flex-col bg-card-white rounded-2xl shadow-modal p-4 sm:p-6 overflow-hidden my-auto',
               sizes[size],
               className
             )}
           >
-            <div className="flex items-start justify-between mb-4">
-              <div>
+            {/* Modal Header */}
+            <div className="flex items-start justify-between pb-3 sm:pb-4 border-b border-border-light shrink-0">
+              <div className="pr-4">
                 {title && (
-                  <h2 id="modal-dialog-title" className="text-xl font-heading font-semibold text-charcoal">
+                  <h2 id="modal-dialog-title" className="text-lg sm:text-xl font-heading font-semibold text-charcoal">
                     {title}
                   </h2>
                 )}
-                {description && <p className="text-sm text-charcoal-light mt-1">{description}</p>}
+                {description && <p className="text-xs sm:text-sm text-charcoal-light mt-0.5">{description}</p>}
               </div>
               <button
                 onClick={onClose}
-                className="p-1.5 rounded-lg text-charcoal-light hover:text-charcoal hover:bg-cream transition-colors"
+                className="p-1.5 rounded-lg text-charcoal-light hover:text-charcoal hover:bg-cream transition-colors shrink-0"
                 aria-label="Close modal dialog"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
-            {children}
+
+            {/* Modal Scrollable Body */}
+            <div className="overflow-y-auto overscroll-contain flex-1 pt-3 sm:pt-4 -mr-1 pr-1">
+              {children}
+            </div>
           </motion.div>
         </div>
       )}

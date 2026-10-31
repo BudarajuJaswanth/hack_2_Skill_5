@@ -64,7 +64,9 @@ export function GuestsPage() {
   const [rsvpFilter, setRsvpFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [groupBy, setGroupBy] = useState<'none' | 'category' | 'family'>('none');
-  const [viewMode, setViewMode] = useState<'table' | 'cards'>('table');
+  const [viewMode, setViewMode] = useState<'table' | 'cards'>(() =>
+    typeof window !== 'undefined' && window.innerWidth < 640 ? 'cards' : 'table'
+  );
 
   // Filtered guests by event
   const eventFilteredGuests = useMemo(() => {

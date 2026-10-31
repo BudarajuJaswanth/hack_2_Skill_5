@@ -74,3 +74,4 @@ describe('Event Service Data Operations', () => {
     expect(typeof stats.pendingTasks).toBe('number');
   });
 });
+

@@ -41,7 +41,12 @@ const navItems = [
   { path: '/settings', icon: Settings, label: 'Settings' },
 ];
 
-export function TopBar() {
+interface TopBarProps {
+  mobileMenuOpenExternal?: boolean;
+  setMobileMenuOpenExternal?: (open: boolean) => void;
+}
+
+export function TopBar({ mobileMenuOpenExternal, setMobileMenuOpenExternal }: TopBarProps = {}) {
   const {
     notifications,
     unreadNotificationsCount,
@@ -51,7 +56,13 @@ export function TopBar() {
     setIsSearchOpen,
   } = useEventContext();
 
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [internalMobileMenuOpen, setInternalMobileMenuOpen] = useState(false);
+  const mobileMenuOpen = mobileMenuOpenExternal !== undefined ? mobileMenuOpenExternal : internalMobileMenuOpen;
+  const setMobileMenuOpen = (open: boolean) => {
+    setInternalMobileMenuOpen(open);
+    setMobileMenuOpenExternal?.(open);
+  };
+
   const [notifDropdownOpen, setNotifDropdownOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
 
@@ -156,7 +167,7 @@ export function TopBar() {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95, y: 10 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute right-0 mt-2 w-80 sm:w-96 bg-card-white rounded-2xl shadow-modal border border-border overflow-hidden z-50"
+                  className="absolute right-0 mt-2 w-[calc(100vw-2rem)] max-w-sm sm:w-96 bg-card-white rounded-2xl shadow-modal border border-border overflow-hidden z-50"
                 >
                   <div className="p-4 border-b border-border-light flex items-center justify-between bg-ivory/40">
                     <div>

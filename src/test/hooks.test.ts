@@ -44,3 +44,4 @@ describe('useLocalStorage Hook', () => {
     expect(result.current[0]).toEqual({ name: 'Alex', role: 'Planner' });
   });
 });
+

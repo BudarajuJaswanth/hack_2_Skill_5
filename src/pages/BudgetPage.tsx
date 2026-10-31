@@ -789,7 +789,94 @@ export function BudgetPage() {
               />
             </div>
           ) : (
-            <table className="w-full text-left border-collapse text-xs">
+            <>
+              {/* Mobile Touch-Friendly Card View (sm:hidden) */}
+              <div className="sm:hidden divide-y divide-sand/40">
+                {tableItems.map((item) => {
+                  const catConfig = CATEGORY_MAP[item.category as BudgetCategory];
+                  const Icon = catConfig?.icon || Layers;
+                  const isVariancePositive = item.actualCost > item.estimatedCost;
+
+                  return (
+                    <div
+                      key={item.id}
+                      onClick={() => handleEditItem(item)}
+                      className="p-3.5 hover:bg-cream/40 transition-colors active:bg-cream/60 flex flex-col gap-2.5 cursor-pointer"
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <div className={`p-2 rounded-xl ${catConfig?.bgClass || 'bg-sand'} shrink-0`}>
+                            <Icon className="w-4 h-4" />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="font-semibold text-charcoal text-sm truncate">{item.description}</p>
+                            <p className="text-[11px] text-charcoal/50 truncate">
+                              {catConfig?.label || item.category} · {item.vendor || 'No vendor'}
+                            </p>
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleBudgetItemPaid(item.id);
+                          }}
+                          className={`shrink-0 inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full border transition-colors ${
+                            item.paid
+                              ? 'bg-olive/10 border-olive/30 text-olive font-medium'
+                              : 'bg-sand/40 border-sand text-charcoal/60 hover:border-terracotta/40'
+                          }`}
+                        >
+                          {item.paid ? <CheckCircle2 className="w-3 h-3 text-olive" /> : <Clock className="w-3 h-3" />}
+                          <span>{item.paid ? 'Settled' : 'Pending'}</span>
+                        </button>
+                      </div>
+
+                      <div className="flex items-center justify-between text-xs pt-1 border-t border-sand/30">
+                        <div className="flex items-center gap-3">
+                          <div>
+                            <span className="text-[10px] text-charcoal/50 block">Actual</span>
+                            <span className="font-bold text-charcoal">{formatCurrency(item.actualCost)}</span>
+                          </div>
+                          <div>
+                            <span className="text-[10px] text-charcoal/50 block">Estimated</span>
+                            <span className="text-charcoal/70">{formatCurrency(item.estimatedCost)}</span>
+                          </div>
+                          {isVariancePositive && (
+                            <span className="text-[10px] text-rose font-medium mt-2">
+                              +${(item.actualCost - item.estimatedCost).toLocaleString()}
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                          <button
+                            type="button"
+                            onClick={() => handleEditItem(item)}
+                            aria-label={`Edit ${item.description}`}
+                            className="p-1.5 rounded-lg text-charcoal/60 hover:text-charcoal hover:bg-sand/60"
+                          >
+                            <Edit2 className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={(e) => handleDeleteItem(item.id, e)}
+                            aria-label={`Delete ${item.description}`}
+                            className="p-1.5 rounded-lg text-charcoal/60 hover:text-rose hover:bg-rose/10"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Desktop & Tablet Table (Hidden on small mobile screens) */}
+              <div className="hidden sm:block overflow-x-auto w-full">
+                <table className="w-full text-left border-collapse text-xs">
               <thead>
                 <tr className="border-b border-sand/50 bg-cream/30 text-charcoal/60 font-serif uppercase tracking-wider">
                   <th className="py-3 px-4 font-normal">Department & Item</th>
@@ -940,7 +1027,9 @@ export function BudgetPage() {
                 })}
               </tbody>
             </table>
-          )}
+          </div>
+        </>
+      )}
         </div>
 
         {/* Table Footer Summary */}
