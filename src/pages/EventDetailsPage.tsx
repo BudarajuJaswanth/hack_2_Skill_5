@@ -132,24 +132,24 @@ export function EventDetailsPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/40 to-transparent" />
 
           {/* Top Badges */}
-          <div className="absolute top-5 left-5 right-5 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Badge variant="rose" className="bg-white/95 text-charcoal text-xs font-semibold capitalize shadow-xs border-none">
+          <div className="absolute top-3 sm:top-5 left-3 sm:left-5 right-3 sm:right-5 flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <Badge variant="rose" className="bg-white/95 text-charcoal text-[11px] sm:text-xs font-semibold capitalize shadow-xs border-none">
                 {event.type}
               </Badge>
-              <Badge variant={statusBadgeVariant[event.status]} className="bg-white/95 text-charcoal text-xs font-semibold capitalize shadow-xs border-none">
+              <Badge variant={statusBadgeVariant[event.status]} className="bg-white/95 text-charcoal text-[11px] sm:text-xs font-semibold capitalize shadow-xs border-none">
                 {event.status}
               </Badge>
             </div>
 
-            <span className="px-3 py-1 rounded-full bg-white/95 text-charcoal font-semibold text-xs shadow-xs">
+            <span className="px-2.5 sm:px-3 py-1 rounded-full bg-white/95 text-charcoal font-semibold text-[11px] sm:text-xs shadow-xs">
               {daysLeft > 0 ? `${daysLeft} days until celebration` : 'Celebration Concluded'}
             </span>
           </div>
 
           {/* Hero Bottom Title & Meta */}
-          <div className="absolute bottom-6 left-6 right-6 text-white space-y-2">
-            <h1 className="text-2xl sm:text-4xl font-heading font-bold text-white drop-shadow-md">
+          <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 text-white space-y-1 sm:space-y-2">
+            <h1 className="text-xl sm:text-3xl lg:text-4xl font-heading font-bold text-white drop-shadow-md leading-tight">
               {event.name}
             </h1>
             <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-white/90">
@@ -200,23 +200,24 @@ export function EventDetailsPage() {
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex gap-2 p-1.5 rounded-2xl bg-cream border border-border-light w-full max-w-xl">
+      <div className="flex gap-1 sm:gap-2 p-1 sm:p-1.5 rounded-2xl bg-cream border border-border-light w-full max-w-xl overflow-x-auto scrollbar-none">
         {[
-          { id: 'overview', label: 'Overview & Logistics' },
-          { id: 'guests', label: 'Guests & Seating' },
-          { id: 'budget', label: 'Budget & Finance' },
-          { id: 'timeline', label: 'Timeline & Tasks' },
+          { id: 'overview', label: 'Overview', fullLabel: 'Overview & Logistics' },
+          { id: 'guests', label: 'Guests', fullLabel: 'Guests & Seating' },
+          { id: 'budget', label: 'Budget', fullLabel: 'Budget & Finance' },
+          { id: 'timeline', label: 'Timeline', fullLabel: 'Timeline & Tasks' },
         ].map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as typeof activeTab)}
-            className={`flex-1 py-2 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+            className={`flex-1 py-1.5 sm:py-2 px-2 sm:px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer whitespace-nowrap text-center ${
               activeTab === tab.id
                 ? 'bg-card-white text-charcoal shadow-xs'
                 : 'text-charcoal-light hover:text-charcoal'
             }`}
           >
-            {tab.label}
+            <span className="sm:hidden">{tab.label}</span>
+            <span className="hidden sm:inline">{tab.fullLabel}</span>
           </button>
         ))}
       </div>

@@ -113,44 +113,44 @@ export function DashboardPage() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="relative overflow-hidden rounded-3xl border border-border-light bg-gradient-to-br from-cream via-ivory to-cream/70 p-6 sm:p-8 lg:p-10 shadow-card"
+        className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-border-light bg-gradient-to-br from-cream via-ivory to-cream/70 p-4 sm:p-8 lg:p-10 shadow-card"
       >
-        <div className="relative z-10 max-w-3xl space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-terracotta/10 border border-terracotta/20 text-terracotta text-xs font-semibold">
-            <Sparkles className="h-3.5 w-3.5 text-terracotta" />
+        <div className="relative z-10 max-w-3xl space-y-2.5 sm:space-y-3">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-terracotta/10 border border-terracotta/20 text-terracotta text-[11px] font-semibold">
+            <Sparkles className="h-3 w-3 text-terracotta" />
             <span>Luxury Celebration Studio</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-charcoal tracking-tight leading-[1.15]">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-heading font-bold text-charcoal tracking-tight leading-[1.2]">
             Let’s make your next celebration <span className="italic text-terracotta font-serif">unforgettable</span>.
           </h1>
 
-          <p className="text-sm sm:text-base text-charcoal-light leading-relaxed max-w-2xl">
+          <p className="text-xs sm:text-base text-charcoal-light leading-relaxed max-w-2xl">
             You have <span className="font-semibold text-charcoal">{stats.upcomingEvents} active celebrations</span> underway. Sarah & James’s Napa Valley wedding is approaching in {getDaysUntil(events[0]?.date || '')} days with 2 priority vendor deadlines this week.
           </p>
 
-          <div className="flex flex-wrap items-center gap-3 pt-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-2 sm:pt-3">
             <Button
               variant="primary"
-              size="lg"
+              size="sm"
               onClick={() => setIsCreateEventOpen(true)}
-              className="shadow-sm gap-2"
+              className="shadow-sm gap-1.5 text-xs sm:text-sm sm:px-4 sm:py-2"
             >
-              <Plus className="h-4 w-4" />
+              <Plus className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               Create Event
             </Button>
 
             <Link to="/ai-assistant">
-              <Button variant="outline" size="lg" className="gap-2 bg-card-white/80">
-                <Sparkles className="h-4 w-4 text-terracotta" />
+              <Button variant="outline" size="sm" className="gap-1.5 bg-card-white/80 text-xs sm:text-sm sm:px-4 sm:py-2">
+                <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-terracotta" />
                 Ask AI Assistant
               </Button>
             </Link>
 
             <Link to="/events">
-              <Button variant="ghost" size="lg" className="gap-1.5 text-xs sm:text-sm">
+              <Button variant="ghost" size="sm" className="gap-1 text-xs sm:text-sm">
                 View Portfolio
-                <ArrowRight className="h-3.5 w-3.5" />
+                <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
               </Button>
             </Link>
           </div>

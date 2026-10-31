@@ -14,7 +14,7 @@ export function SearchInput({ containerClassName, className, ...props }: SearchI
         type="search"
         aria-label={props['aria-label'] || 'Search'}
         className={cn(
-          'w-full rounded-lg border border-border bg-card-white pl-10 pr-4 py-2 text-sm',
+          'w-full rounded-lg border border-border bg-card-white pl-10 pr-4 py-2 text-base sm:text-sm',
           'placeholder:text-charcoal-light/50',
           'focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta',
           'transition-colors duration-200',

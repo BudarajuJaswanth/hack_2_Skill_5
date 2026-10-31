@@ -73,17 +73,17 @@ export function LandingPage() {
     <div className="min-h-screen bg-ivory text-charcoal font-sans selection:bg-terracotta/20 selection:text-terracotta">
       {/* 1. PUBLIC NAVIGATION */}
       <header className="sticky top-0 z-50 bg-card-white/90 backdrop-blur-md border-b border-border-light">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-terracotta/10 group-hover:bg-terracotta/20 transition-colors shadow-xs">
-              <PartyPopper className="h-5 w-5 text-terracotta" />
+          <Link to="/" className="flex items-center gap-2.5 sm:gap-3 group">
+            <div className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-terracotta/10 group-hover:bg-terracotta/20 transition-colors shadow-xs">
+              <PartyPopper className="h-4 w-4 sm:h-5 sm:w-5 text-terracotta" />
             </div>
             <div>
-              <span className="font-heading font-bold text-xl tracking-tight text-charcoal block leading-none">
+              <span className="font-heading font-bold text-lg sm:text-xl tracking-tight text-charcoal block leading-none">
                 Gather & Glow
               </span>
-              <span className="text-[10px] text-terracotta font-medium tracking-widest uppercase">
+              <span className="text-[9px] sm:text-[10px] text-terracotta font-medium tracking-widest uppercase">
                 Luxury Event Studio
               </span>
             </div>
@@ -232,7 +232,7 @@ export function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-6xl lg:text-7xl font-heading font-bold text-charcoal tracking-tight leading-[1.12]"
+              className="text-3xl sm:text-6xl lg:text-7xl font-heading font-bold text-charcoal tracking-tight leading-[1.15]"
             >
               Every Celebration Starts With a <span className="italic text-terracotta font-serif">Beautiful Plan.</span>
             </motion.h1>

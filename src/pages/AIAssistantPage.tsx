@@ -671,7 +671,7 @@ How can I assist you today? You can ask me to generate color palettes, calculate
                 onChange={(e) => setInputPrompt(e.target.value)}
                 disabled={isTyping}
                 aria-label="Ask your AI planning architect a question"
-                className="flex-1 rounded-xl border border-sand bg-cream/20 px-4 py-2.5 text-xs sm:text-sm text-charcoal placeholder:text-charcoal/40 focus:outline-none focus:ring-2 focus:ring-terracotta/20 focus:border-terracotta transition-all"
+                className="flex-1 rounded-xl border border-sand bg-cream/20 px-3.5 sm:px-4 py-2.5 text-base sm:text-sm text-charcoal placeholder:text-charcoal/40 focus:outline-none focus:ring-2 focus:ring-terracotta/20 focus:border-terracotta transition-all"
               />
               <Button
                 type="submit"

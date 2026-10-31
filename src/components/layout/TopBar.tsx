@@ -86,9 +86,9 @@ export function TopBar({ mobileMenuOpenExternal, setMobileMenuOpenExternal }: To
 
   return (
     <header className="sticky top-0 z-30 bg-card-white/90 backdrop-blur-md border-b border-border-light">
-      <div className="flex items-center justify-between h-18 px-4 lg:px-8 gap-4">
+      <div className="flex items-center justify-between h-16 sm:h-18 px-3 sm:px-6 lg:px-8 gap-2 sm:gap-4">
         {/* Mobile: Logo + Menu Trigger */}
-        <div className="flex items-center gap-3 lg:hidden">
+        <div className="flex items-center gap-2 sm:gap-3 lg:hidden">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-xl text-charcoal-light hover:bg-cream transition-colors cursor-pointer"
@@ -125,11 +125,11 @@ export function TopBar({ mobileMenuOpenExternal, setMobileMenuOpenExternal }: To
         </div>
 
         {/* Right Section: Mobile search trigger, Notifications, Profile, Create Event */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3">
           {/* Mobile search button */}
           <button
             onClick={() => setIsSearchOpen(true)}
-            className="sm:hidden p-2 rounded-xl text-charcoal-light hover:bg-cream transition-colors cursor-pointer"
+            className="sm:hidden p-1.5 rounded-xl text-charcoal-light hover:bg-cream transition-colors cursor-pointer"
             aria-label="Open search"
           >
             <Search className="h-5 w-5" />
@@ -349,7 +349,7 @@ export function TopBar({ mobileMenuOpenExternal, setMobileMenuOpenExternal }: To
           <Button
             variant="primary"
             onClick={() => setIsCreateEventOpen(true)}
-            className="shadow-sm font-medium text-xs sm:text-sm px-3.5 sm:px-4 py-2 rounded-xl"
+            className="shadow-sm font-medium text-xs sm:text-sm px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl shrink-0"
           >
             <Plus className="h-4 w-4 mr-1 sm:mr-1.5" />
             <span className="hidden sm:inline">Create Event</span>

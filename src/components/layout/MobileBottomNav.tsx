@@ -68,7 +68,7 @@ export function MobileBottomNav({ onOpenMoreMenu }: MobileBottomNavProps) {
               to={item.path}
               className={({ isActive }) =>
                 cn(
-                  'flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all duration-150 min-w-[56px] focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta',
+                  'flex flex-col items-center justify-center py-1 px-1 sm:px-2.5 rounded-xl transition-all duration-150 min-w-[48px] sm:min-w-[56px] focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta',
                   isActive
                     ? 'text-terracotta font-semibold'
                     : 'text-charcoal-light hover:text-charcoal'
@@ -76,7 +76,7 @@ export function MobileBottomNav({ onOpenMoreMenu }: MobileBottomNavProps) {
               }
             >
               <item.icon className="w-5 h-5 transition-transform active:scale-90" />
-              <span className="text-[10px] tracking-tight mt-1">{item.label}</span>
+              <span className="text-[10px] tracking-tight mt-0.5">{item.label}</span>
             </NavLink>
           );
         })}
@@ -87,7 +87,7 @@ export function MobileBottomNav({ onOpenMoreMenu }: MobileBottomNavProps) {
             type="button"
             onClick={onOpenMoreMenu}
             aria-label="Open more navigation options"
-            className="flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all duration-150 min-w-[56px] text-charcoal-light hover:text-charcoal active:scale-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
+            className="flex flex-col items-center justify-center py-1 px-1 sm:px-2.5 rounded-xl transition-all duration-150 min-w-[48px] sm:min-w-[56px] text-charcoal-light hover:text-charcoal active:scale-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta"
           >
             <div className="relative">
               <Menu className="w-5 h-5" />
@@ -95,10 +95,11 @@ export function MobileBottomNav({ onOpenMoreMenu }: MobileBottomNavProps) {
                 <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-terracotta" />
               )}
             </div>
-            <span className="text-[10px] tracking-tight mt-1">More</span>
+            <span className="text-[10px] tracking-tight mt-0.5">More</span>
           </button>
         )}
       </div>
     </nav>
   );
 }
+

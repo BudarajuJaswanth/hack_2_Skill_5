@@ -30,7 +30,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             aria-invalid={error ? true : undefined}
             aria-describedby={error ? `${inputId}-error` : undefined}
             className={cn(
-              'w-full rounded-lg border bg-card-white px-3 py-2 text-sm text-charcoal',
+              'w-full rounded-lg border bg-card-white px-3 py-2 text-base sm:text-sm text-charcoal',
               'placeholder:text-charcoal-light/50',
               'focus:outline-none focus:ring-2 focus:ring-terracotta/30 focus:border-terracotta',
               'transition-colors duration-200',

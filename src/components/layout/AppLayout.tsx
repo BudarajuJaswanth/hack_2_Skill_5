@@ -40,7 +40,7 @@ export function AppLayout() {
         <main
           id="main-content"
           tabIndex={-1}
-          className="flex-1 p-3 sm:p-5 lg:p-8 pb-24 lg:pb-8 max-w-7xl w-full mx-auto focus:outline-none"
+          className="flex-1 p-3 sm:p-5 lg:p-8 pb-24 lg:pb-8 max-w-7xl w-full mx-auto focus:outline-none overflow-x-hidden"
         >
           <Outlet />
         </main>

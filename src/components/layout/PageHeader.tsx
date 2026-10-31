@@ -15,15 +15,19 @@ export function PageHeader({ title, description, actions, className }: PageHeade
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className={cn('flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8', className)}
+      className={cn('flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-5 sm:mb-8', className)}
     >
       <div>
-        <h1 className="text-2xl lg:text-3xl font-heading font-bold text-charcoal">{title}</h1>
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-heading font-bold text-charcoal leading-tight tracking-tight">
+          {title}
+        </h1>
         {description && (
-          <p className="text-charcoal-light mt-1">{description}</p>
+          <p className="text-xs sm:text-sm text-charcoal-light mt-1 leading-relaxed max-w-2xl">
+            {description}
+          </p>
         )}
       </div>
-      {actions && <div className="flex items-center gap-3">{actions}</div>}
+      {actions && <div className="flex items-center gap-2 sm:gap-3 flex-wrap">{actions}</div>}
     </motion.div>
   );
 }
